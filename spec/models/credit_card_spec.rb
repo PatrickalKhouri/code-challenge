@@ -32,6 +32,11 @@ RSpec.describe CreditCard, type: :model do
       expect(card).to eq(false) 
     end
 
+    it 'ensures there cant be other flags' do
+      card = CreditCard.new(limit: -2, number: "2222-2222-2222-2222", cvv:"222", flag: "amex", expiration_date: "08/2022").save
+      expect(card).to eq(false) 
+    end
+
 
   end
 
