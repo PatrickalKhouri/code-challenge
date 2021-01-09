@@ -1,0 +1,2 @@
+GET http://localhost:3000/users/:user_id/accounts/:account_id/credit_cards/:credit_card_id/transactions
+Content-Type: application/json
