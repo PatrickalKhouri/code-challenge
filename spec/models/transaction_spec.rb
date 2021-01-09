@@ -23,7 +23,7 @@ RSpec.describe Transaction, type: :model do
     end
   
     it 'ensures amount is greater than 0' do
-      transaction = Transaction.new(amount: -5, currency: "usd", status:"paid", created: "2222222").save
+      transaction = Transaction.new(amount: -5  , currency: "usd", status:"paid", created: "2222222").save
       expect(transaction).to eq(false) 
     end
   end
