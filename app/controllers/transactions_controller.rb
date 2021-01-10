@@ -13,16 +13,34 @@ class TransactionsController < ApplicationController
     else
       json = json_converter(@transactions)
     end 
-    render json: json
-    #end
+    render json: json, limit: 5
+  end
+
+  def charge
+    transaction = Transaction.new(transaction_params)  
+    transaction.credit_card_id = @credit_card.id
+    if transaction.valid?
+      transaction.save
+      json = transaction_converter(transaction)
+      render json: json
+    else
+      error_json = { error: "Invalid inputs" }
+      render json: error_json, status: 400
+    end
   end
 
   
   private
 
   def json_converter(transaction_array)
-    json = transaction_array.map { |transaction| {id: transaction.id, created: transaction.created.to_i, status: transaction.status,  amount: transaction.amount.to_i, currency: transaction.currency, credit_card_id: transaction.credit_card_id } }
+    json = transaction_array.map do |transaction| 
+      { id: transaction.id, created: transaction.created.to_i, status: transaction.status, amount: transaction.amount.to_i, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
+    end
     json
+  end
+
+  def transaction_converter(transaction)
+    { id: transaction.id, created: transaction.created, status: transaction.status, amount: transaction.amount, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
   end
 
   def set_product
@@ -30,7 +48,7 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:status, :created, :amount, :currency)
+  params.require(:transaction).permit(:created, :amount, :currency)
   end
 end
 

@@ -26,12 +26,14 @@ RSpec.describe Transaction, type: :model do
   context "State Machine tests" do
     it 'ensures that the state changes from paid to disputed' do
       transaction = Transaction.create(currency: "usd", created:"2222222", amount: 2000)
+      transaction.approve
       transaction.disputed
       expect(transaction.dispute?).to eq(true) 
     end
 
     it 'ensures that the state changes from disputed to paid' do
       transaction = Transaction.create(currency: "usd", created:"2222222", amount: 2000)
+      transaction.approve
       transaction.disputed
       transaction.pay
       expect(transaction.paid?).to eq(true) 
@@ -39,9 +41,15 @@ RSpec.describe Transaction, type: :model do
 
     it 'ensures that the state changes from disputed to refunded' do
       transaction = Transaction.create(currency: "usd", created:"2222222", amount: 2000)
+      transaction.approve
       transaction.disputed
       transaction.refund
       expect(transaction.refunded?).to eq(true) 
+    end
+
+    it 'ensures that inital state is pending' do
+      transaction = Transaction.create(currency: "usd", created:"2222222", amount: 2000)
+      expect(transaction.pending?).to eq(true) 
     end
   end
 end

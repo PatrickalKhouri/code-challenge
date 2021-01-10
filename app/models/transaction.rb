@@ -4,10 +4,17 @@ class Transaction < ApplicationRecord
   include AASM
 
   aasm :column_name, column: 'status' do # default column: aasm_state
+    state :pending, initial: true
     state :paid, :dispute, :failed, :refunded
 
+    #after_transition
+
     event :fail do
-      transitions from: :paid, to: :failed
+      transitions from: :pending, to: :failed
+    end
+
+    event :approve do
+      transitions from: :pending, to: :paid
     end
 
     event :disputed do
@@ -27,6 +34,19 @@ class Transaction < ApplicationRecord
   belongs_to :credit_card
   validates :currency, :amount, :created, presence: true
   validates :amount, :numericality => { greater_than: 0 }
+
+  def approve_transaction
+    if limit_left
+      approve
+    else
+      fail
+    end
+  end
+
+  def limit_left
+    remaining_limit = self.credit_card.limit - self.amount
+    remaining_limit >= 0 ? true : false
+  end
 end
 
 

@@ -18,6 +18,9 @@ gem 'puma', '~> 4.1'
 gem 'aasm', '~> 4.12'
 gem 'after_commit_everywhere', '~> 0.1', '>= 0.1.5'
 gem 'pry'
+gem 'kaminari' 
+gem 'pager_api'
+gem 'pagy'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

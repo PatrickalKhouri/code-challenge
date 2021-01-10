@@ -1,2 +1,8 @@
-GET http://localhost:3000/users/:user_id/accounts/:account_id/credit_cards/:credit_card_id/transactions
+GET http://localhost:3000/users/:user_id/accounts/:account_id/credit_card/:credit_card_id/charge'
 Content-Type: application/json
+
+{
+"created": 8526798985, 
+"amount": 2000,
+"currency": "usd",
+}
