@@ -3,20 +3,23 @@ require 'aasm'
 class Transaction < ApplicationRecord
   include AASM
 
-  aasm do
-    state :sleeping, initial: true
-    state :running, :cleaning
+  aasm :column_name, column: 'status' do # default column: aasm_state
+    state :paid, :dispute, :failed, :refunded
 
-    event :run do
-      transitions from: :sleeping, to: :running
+    event :fail do
+      transitions from: :paid, to: :failed
     end
 
-    event :clean do
-      transitions from: :running, to: :cleaning
+    event :disputed do
+      transitions from: :paid, to: :dispute
     end
 
-    event :sleep do
-      transitions from: [:running, :cleaning], to: :sleeping
+    event :refund do
+      transitions from: :dispute, to: :refunded
+    end
+
+    event :pay do
+      transitions from: :dispute, to: :paid
     end
   end
 
