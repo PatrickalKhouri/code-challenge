@@ -1,11 +1,11 @@
 require 'pry'
 require 'json'
 
+
 class TransactionsController < ApplicationController
   before_action :set_product, only: [:index]
 
   def index
-    # @Transactions = Transaction.all
     @transactions = @credit_card.transactions
     if params[:status]
       @transactions_with_filter = @transactions.where(status: params[:status])
@@ -13,7 +13,8 @@ class TransactionsController < ApplicationController
     else
       json = json_converter(@transactions)
     end 
-    render json: json, limit: 5
+    render json: json, per_page: 5
+
   end
 
   def charge
@@ -21,7 +22,7 @@ class TransactionsController < ApplicationController
     transaction.credit_card_id = @credit_card.id
     if transaction.valid?
       transaction.save
-      new_transaction = { id: transaction.id, created: transaction.created, status: transaction.status, amount: transaction.amount.to_i, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
+      new_transaction = { id: transaction.id, created: transaction.created, status: transaction.status, amount: transaction.amount, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
       render json: new_transaction
     else
       error_json = { error: "Invalid inputs" }
@@ -48,8 +49,8 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-  params.require(:transaction).permit(:created, :amount, :currency)
-  end
+    params.require(:transaction).permit(:amount, :currency, :created )
+   end
 end
 
 

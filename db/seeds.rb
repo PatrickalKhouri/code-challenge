@@ -42,19 +42,19 @@ p 'Creating Transactions...'
 
 p 'Paid transactions'
 
-Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 2000, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 3000, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.first, currency: "eur", amount: 6000, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.first, currency: "eur", amount: 10000, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 20000, created: rand.to_s[2..11] )
+paid_one = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 2000, created: rand.to_s[2..11] )
+paid_two = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 3000, created: rand.to_s[2..11] )
+paid_three = Transaction.create(credit_card: CreditCard.first, currency: "eur", amount: 6000, created: rand.to_s[2..11] )
+paid_four = Transaction.create(credit_card: CreditCard.first, currency: "eur", amount: 10000, created: rand.to_s[2..11] )
+paid_five = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 20000, created: rand.to_s[2..11] )
 
-Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 3100, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 2032, created: rand.to_s[2..11] )
-Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 2301, created: rand.to_s[2..11] )
+paid_six = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 3100, created: rand.to_s[2..11] )
+paid_seven = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 2032, created: rand.to_s[2..11] )
+paid_eight = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 2301, created: rand.to_s[2..11] )
 
-Transaction.create(credit_card: CreditCard.third, currency: "brl", amount: 23002, created: rand.to_s[2..11] )
+paid_nine = Transaction.create(credit_card: CreditCard.third, currency: "brl", amount: 23002, created: rand.to_s[2..11] )
 
-Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 22310, created: rand.to_s[2..11] )
+paid_ten = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 22310, created: rand.to_s[2..11] )
 
 p 'Created paid transactions'
 
@@ -80,16 +80,6 @@ fail_five = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", 
 p "Failed transactions created ....."
 p 'Transactions Created'
 
-#fail_one.fail
-#fail_one.save!
-#fail_two.fail
-#fail_two.save!
-#fail_three.fail
-#fail_three.save!
-#fail_four.fail
-#fail_four.save!
-#fail_five.fail
-#fail_five.save!
 disputed_one.disputed
 disputed_one.save!
 disputed_two.disputed
@@ -100,16 +90,3 @@ disputed_four.disputed
 disputed_four.save!
 disputed_five.disputed
 disputed_five.save!
-
-
-
-
-# 5 should be disputed transactions:
-#  - 3 should be linked to Customer 1 Visa Credit Card
-#  - 2 should be linked to customer 2 Visa Credit Card
-
-#t.integer "credit_card_id", null: false
-#t.string "currency"
-#t.string "amount"
-#t.string "status"
-#t.string "created"

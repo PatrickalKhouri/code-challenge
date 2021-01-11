@@ -31,15 +31,17 @@ class Transaction < ApplicationRecord
   after_save :approve_transaction
 
   belongs_to :credit_card
-  # validates :currency, :amount, :created, presence: true
+  validates :currency, :amount, :created, presence: true
   validates :amount, :numericality => { greater_than: 0 }
 
   def approve_transaction
     if self.status == "pending"
       if limit_left
         approve
+        self.save!
       else
         fail
+        self.save!
       end
     end
   end
