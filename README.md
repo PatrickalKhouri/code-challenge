@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby 2.6.6
+Framework - Rails 6
+Database - Postgresql
 
-Things you may want to cover:
 
-* Ruby version
+--Install dependencies:
 
-* System dependencies
+$ bundle install && yarn install
 
-* Configuration
+--Run Database migrations:
 
-* Database creation
+$ rails db:migrate
 
-* Database initialization
+-- Start server: 
 
-* How to run the test suite
+$ rails s
 
-* Services (job queues, cache servers, search engines, etc.)
+-- Post request endpoint: 
 
-* Deployment instructions
+POST /users/:user_id/accounts/:account_id/credit_card/:credit_card_id/charge'
 
+-- Run Tests: 
+
+$ rspec
 * ...
