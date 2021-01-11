@@ -21,7 +21,7 @@ class TransactionsController < ApplicationController
     transaction = Transaction.new(transaction_params)  
     transaction.credit_card_id = @credit_card.id
     if transaction.valid?
-      transaction.save
+      transaction.save!
       new_transaction = { id: transaction.id, created: transaction.created, status: transaction.status, amount: transaction.amount, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
       render json: new_transaction
     else
