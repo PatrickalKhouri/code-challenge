@@ -7,8 +7,6 @@ class Transaction < ApplicationRecord
     state :pending, initial: true
     state :paid, :dispute, :failed, :refunded
 
-    #after_transition
-
     event :fail do
       transitions from: :pending, to: :failed
     end
@@ -30,21 +28,24 @@ class Transaction < ApplicationRecord
     end
   end
 
+  after_save :approve_transaction
 
   belongs_to :credit_card
-  validates :currency, :amount, :created, presence: true
+  # validates :currency, :amount, :created, presence: true
   validates :amount, :numericality => { greater_than: 0 }
 
   def approve_transaction
-    if limit_left
-      approve
-    else
-      fail
+    if self.status == "pending"
+      if limit_left
+        approve
+      else
+        fail
+      end
     end
   end
 
   def limit_left
-    remaining_limit = self.credit_card.limit - self.amount
+    remaining_limit = self.credit_card.limit.to_i - self.amount.to_i
     remaining_limit >= 0 ? true : false
   end
 end

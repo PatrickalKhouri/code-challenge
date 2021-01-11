@@ -58,40 +58,38 @@ Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 2231
 
 p 'Created paid transactions'
 
-p "Creating failed transactions....."
-
-fail_one = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 223120, created: rand.to_s[2..11] )
-fail_two = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 61121, created: rand.to_s[2..11] )
-fail_three = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 13163, created: rand.to_s[2..11] )
-
-fail_four = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 221240, created: rand.to_s[2..11] )
-fail_five = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 132131, created: rand.to_s[2..11] )
-
-p "Failed transactions created ....."
-
 p 'Creating disputed transactions...'
 
-disputed_one = Transaction.create(credit_card: CreditCard.first, currency: "brl", amount: 123610, created: rand.to_s[2..11] )
-disputed_two = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 83121, created: rand.to_s[2..11] )
-disputed_three = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 666540, created: rand.to_s[2..11] )
+disputed_one = Transaction.create(credit_card: CreditCard.first, currency: "brl", amount: 1610, created: rand.to_s[2..11] )
+disputed_two = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 821, created: rand.to_s[2..11] )
+disputed_three = Transaction.create(credit_card: CreditCard.first, currency: "usd", amount: 6540, created: rand.to_s[2..11] )
 
-disputed_four = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 17540, created: rand.to_s[2..11] )
-disputed_five = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 572140, created: rand.to_s[2..11])
+disputed_four = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 1700, created: rand.to_s[2..11] )
+disputed_five = Transaction.create(credit_card: CreditCard.second, currency: "usd", amount: 5340, created: rand.to_s[2..11])
 
 p 'Disputed transactions created!'
 
+p "Creating failed transactions....."
+fail_one = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 2223120, created: rand.to_s[2..11] )
+fail_two = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 61112321, created: rand.to_s[2..11] )
+fail_three = Transaction.create(credit_card: CreditCard.third, currency: "usd", amount: 13112363, created: rand.to_s[2..11] )
+
+fail_four = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 2211240, created: rand.to_s[2..11] )
+fail_five = Transaction.create(credit_card: CreditCard.fourth, currency: "usd", amount: 13222131, created: rand.to_s[2..11] )
+
+p "Failed transactions created ....."
 p 'Transactions Created'
 
-fail_one.fail
-fail_one.save!
-fail_two.fail
-fail_two.save!
-fail_three.fail
-fail_three.save!
-fail_four.fail
-fail_four.save!
-fail_five.fail
-fail_five.save!
+#fail_one.fail
+#fail_one.save!
+#fail_two.fail
+#fail_two.save!
+#fail_three.fail
+#fail_three.save!
+#fail_four.fail
+#fail_four.save!
+#fail_five.fail
+#fail_five.save!
 disputed_one.disputed
 disputed_one.save!
 disputed_two.disputed

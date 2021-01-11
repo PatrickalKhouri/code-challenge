@@ -21,8 +21,8 @@ class TransactionsController < ApplicationController
     transaction.credit_card_id = @credit_card.id
     if transaction.valid?
       transaction.save
-      json = transaction_converter(transaction)
-      render json: json
+      new_transaction = { id: transaction.id, created: transaction.created, status: transaction.status, amount: transaction.amount.to_i, currency: transaction.currency, credit_card_id: transaction.credit_card_id }
+      render json: new_transaction
     else
       error_json = { error: "Invalid inputs" }
       render json: error_json, status: 400
